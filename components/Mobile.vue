@@ -67,9 +67,9 @@ export default {
         window.addEventListener(
           "deviceorientation",
           (event) => {
-            this.z = event.alpha.toFixed(0) * 3; // alpha: rotation around z-axis
-            this.x = event.gamma.toFixed(0) * 6; // gamma: left to right
-            this.y = event.beta.toFixed(0) * 4; // beta: front back motion
+            this.z = -event.alpha.toFixed(0); // alpha: rotation around z-axis
+            this.x = event.gamma.toFixed(0) * 3; // gamma: left to right
+            this.y = -event.beta.toFixed(0) * 6; // beta: front back motion
             this.sendDeviceOrientationViaSocket();
           },
           true

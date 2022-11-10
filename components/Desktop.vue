@@ -1,14 +1,10 @@
 <template>
-  <template v-if="scanningStep">
-    <h1>room: {{ room }}</h1>
+  <div v-if="scanningStep" class="qrcodeview">
+    <h3>{{ room }}</h3>
     <div id="uniqueqrcode" class="qrcode"></div>
-  </template>
+  </div>
   <div v-else>
     <div class="ball" ref="ball"></div>
-    <!-- <h1>connected</h1>
-    <td>X: {{ this.x }}</td>
-    <td>Y: {{ this.y }}</td>
-    <td>Z: {{ this.z }}</td> -->
   </div>
 </template>
 <script>
@@ -52,9 +48,9 @@ export default {
       this.y = data.coordinate.y;
       this.z = data.coordinate.z;
       console.log("caca", this.$refs["ball"]);
-      this.$refs[
-        "ball"
-      ].style.transform = `translate3d(${this.x}px,${this.y}px,0)`;
+      this.$refs["ball"].style.transform = `translate3d(${this.z + this.x}px,${
+        this.y
+      }px,0)`;
     });
 
     // Join random room
@@ -76,7 +72,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="postcss">
 * {
   margin: 0;
   padding: 0;
@@ -92,5 +88,25 @@ export default {
   background: red;
   width: 100px;
   height: 100px;
+}
+.qrcodeview {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.1s;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+}
+
+.qrcode > img {
+  width: 200px !important;
+  height: 200px !important;
+  background: red;
 }
 </style>
