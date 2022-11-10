@@ -68,8 +68,8 @@ export default {
           "deviceorientation",
           (event) => {
             this.z = -event.alpha.toFixed(0); // alpha: rotation around z-axis
-            this.x = event.gamma.toFixed(0) * 3; // gamma: left to right
-            this.y = -event.beta.toFixed(0) * 6; // beta: front back motion
+            this.y = -event.gamma.toFixed(0) * 4; // gamma: left to right
+            this.x = event.beta.toFixed(0) * 7; // beta: front back motion
             this.sendDeviceOrientationViaSocket();
           },
           true
