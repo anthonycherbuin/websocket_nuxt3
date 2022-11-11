@@ -34,7 +34,7 @@ io.on("connection", function(socket) {
     socket.join(data.room);
     // socket.to(data.room).emit('nana', socket.id);
 
-    if(data.isMobile){
+    if(data.isGun){
       io.to(data.room.toString()).emit('phoneConnected');
     }
 

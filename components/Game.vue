@@ -4,7 +4,7 @@
       id="bulletTemplate"
       bullet
       geometry="primitive: sphere; radius: 0.03"
-      material="color: orange"
+      material="color: white"
     ></a-entity>
 
     <a-entity
@@ -18,31 +18,26 @@
 
     <!-- <a-entity
       id="gun"
-      shooter
-      geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3"
-      material="color: red"
-      click-to-shoot
-      position="0 0 -1"
-    ></a-entity> -->
-
-    <a-entity
-      id="gun"
       vive-controls="hand: right;"
       oculus-touch-controls="hand: right; model: false;"
       daydream-controls="hand: right; model: false"
       shooter="bulletTypes: normal; activeBulletType: normal"
-    >
-      <!-- <a-entity
-        supercraft-thing="from: #supercraftThings; name: thing30; resetOrigin: true; ignorePosition: true"
-        rotation="0 5 0"
-        position="0 0 -0.03"
-      ></a-entity> -->
-    </a-entity>
+    > -->
+    <!-- </a-entity> -->
 
-    <!-- <a-camera id="camera" position="-1 0 0"></a-camera> -->
+    <a-camera id="camera" position="0 1 0" rotation="0 90 0">
+      <a-entity
+        id="gun"
+        shooter
+        geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3"
+        material="color: red"
+        click-to-shoot
+        position="0.1 -0.2 -0.2"
+      ></a-entity>
+    </a-camera>
 
     <a-entity
-      environment="skyType: gradient; skyColor: white; horizonColor: #7ae0e0; groundTexture: squares; groundColor: green; groundColor2: green; dressing: torii; dressingAmount: 10; dressingColor: #7c5c45; dressingScale:1;"
+      environment="skyType: gradient; skyColor: white; horizonColor: #7ae0e0; groundTexture: squares; groundColor: green; groundColor2: green; dressing: torii; dressingAmount: 2; dressingColor: #7c5c45; dressingScale:1;"
     ></a-entity>
   </a-scene>
 </template>
@@ -78,6 +73,7 @@ export default {
       this.x = data.coordinate.x;
       this.y = data.coordinate.y;
       this.z = data.coordinate.z;
+      console.log(this.x);
 
       // Tween this values
       TweenMax.to(tween, 1, {

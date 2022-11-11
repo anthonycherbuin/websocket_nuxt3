@@ -10,6 +10,12 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import { io } from "socket.io-client";
 
 export default {
+  props: {
+    isGun: {
+      type: Boolean,
+      default: null,
+    },
+  },
   data() {
     return {
       socket: null,
@@ -23,7 +29,7 @@ export default {
     };
   },
   mounted() {
-    this.socket = io("https://192.168.1.8:4000");
+    this.socket = io("https://websocket-nuxt3.vercel.app:4000");
     // Connect to socker io server
     this.socket.on("connect", () => {
       console.log(this.socket.id);
@@ -41,19 +47,21 @@ export default {
     this.socket.on("phoneConnected", () => {
       this.html5QrcodeScanner.clear();
       this.scanningStep = false;
+      navigator.vibrate(100);
     });
 
     this.initCamera();
   },
   methods: {
     fire() {
+      navigator.vibrate(50);
       this.socket.emit("fire", {
         room: this.room,
       });
     },
     onScanSuccess(decodedText) {
       this.room = decodedText;
-      this.socket.emit("join", { room: this.room, isMobile: true });
+      this.socket.emit("join", { room: this.room, isGun: this.isGun });
       this.init();
     },
     initCamera() {
@@ -69,16 +77,30 @@ export default {
 
       this.html5QrcodeScanner.render(this.onScanSuccess);
     },
+    // limit number of event fired to not kill our server
+    throttle(callback, limit) {
+      var wait = false;
+      return function () {
+        if (!wait) {
+          callback.apply(null, arguments);
+          wait = true;
+          setTimeout(function () {
+            wait = false;
+          }, limit);
+        }
+      };
+    },
     init() {
       if (window.DeviceOrientationEvent) {
         window.addEventListener(
           "deviceorientation",
-          (event) => {
+          this.throttle((event) => {
             this.x = event.alpha.toFixed(0); // alpha: rotation around z-axis
             this.z = -event.gamma.toFixed(0); // gamma: left to right
             this.y = event.beta.toFixed(0); // beta: front back motion
+
             this.sendDeviceOrientationViaSocket();
-          },
+          }, 30),
           true
         );
 

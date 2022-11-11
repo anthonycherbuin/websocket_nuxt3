@@ -1,16 +1,31 @@
 <template>
   <client-only>
     <template v-if="isMobile()">
-      <Mobile />
+      <button v-if="useMobileAsVR === null" @click="setPhoneAsHeadset(false)">
+        Use this smartphone as the gun
+      </button>
+      <button v-if="useMobileAsVR === null" @click="setPhoneAsHeadset(true)">
+        Use this smartphone as the VR headset
+      </button>
+      <Mobile v-if="useMobileAsVR == false" :isGun="true" />
+      <Desktop v-if="useMobileAsVR" :isGun="false" />
     </template>
     <template v-else>
-      <Desktop />
+      <Desktop :isGun="false" />
     </template>
   </client-only>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      useMobileAsVR: null,
+    };
+  },
   methods: {
+    setPhoneAsHeadset(isHeadset) {
+      this.useMobileAsVR = isHeadset;
+    },
     isMobile() {
       let check = false;
       (function (a) {

@@ -1,6 +1,5 @@
 <template>
   <div v-if="scanningStep" class="qrcodeview">
-    <!-- <Game :socket="socket" /> -->
     <h3>{{ room }}</h3>
     <div id="uniqueqrcode" class="qrcode"></div>
   </div>
@@ -13,6 +12,12 @@ import { io } from "socket.io-client";
 import qrcode from "/node_modules/qrcode-generator/qrcode.js";
 
 export default {
+  props: {
+    isGun: {
+      type: Boolean,
+      default: null,
+    },
+  },
   data() {
     return {
       socket: null,
@@ -24,7 +29,8 @@ export default {
     };
   },
   mounted() {
-    this.socket = io("localhost:4000");
+    // TODO: host that server
+    this.socket = io("https://websocket-nuxt3.vercel.app:4000");
 
     // Connect to socker io server
     this.socket.on("connect", () => {
@@ -68,7 +74,7 @@ export default {
   methods: {
     joinRoom() {
       this.room = Math.floor(Date.now() * Math.random()) + "js";
-      this.socket.emit("join", { room: this.room, isMobile: false });
+      this.socket.emit("join", { room: this.room, isGun: this.isGun });
     },
   },
 };
