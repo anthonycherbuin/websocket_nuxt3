@@ -1,7 +1,8 @@
 <template>
   <div v-if="scanningStep" id="qr-code-full-region"></div>
   <div v-else>
-    <div class="phoneisconnected">Move your phone :)</div>
+    <!-- <div class="phoneisconnected">Move your phone :)</div> -->
+    <button class="firebtn" @click="fire()">FIRE</button>
   </div>
 </template>
 <script>
@@ -18,6 +19,7 @@ export default {
       x: 0,
       y: 0,
       z: 0,
+      acceleration: { x: null },
     };
   },
   mounted() {
@@ -44,6 +46,11 @@ export default {
     this.initCamera();
   },
   methods: {
+    fire() {
+      this.socket.emit("fire", {
+        room: this.room,
+      });
+    },
     onScanSuccess(decodedText) {
       this.room = decodedText;
       this.socket.emit("join", { room: this.room, isMobile: true });
@@ -67,13 +74,22 @@ export default {
         window.addEventListener(
           "deviceorientation",
           (event) => {
-            this.z = -event.alpha.toFixed(0); // alpha: rotation around z-axis
-            this.y = -event.gamma.toFixed(0) * 4; // gamma: left to right
-            this.x = event.beta.toFixed(0) * 7; // beta: front back motion
+            this.x = event.alpha.toFixed(0); // alpha: rotation around z-axis
+            this.z = -event.gamma.toFixed(0); // gamma: left to right
+            this.y = event.beta.toFixed(0); // beta: front back motion
             this.sendDeviceOrientationViaSocket();
           },
           true
         );
+
+        // window.addEventListener(
+        //   "devicemotion",
+        //   (event) => {
+        //     this.acceleration.x = event.accelerationIncludingGravity.x;
+        //     this.sendDeviceAccelerationViaSocket();
+        //   },
+        //   true
+        // );
       }
     },
     sendDeviceOrientationViaSocket() {
@@ -82,6 +98,12 @@ export default {
         coordinate: { x: this.x, y: this.y, z: this.z },
       });
     },
+    // sendDeviceAccelerationViaSocket() {
+    //   this.socket.emit("mobileAcceleration", {
+    //     room: this.room,
+    //     acceleration: { x: this.acceleration.x },
+    //   });
+    // },
   },
 };
 </script>
@@ -90,5 +112,27 @@ export default {
   /* background: red;
   height: 100vh;
   width: 100vw; */
+}
+
+.firebtn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: red; /* Green */
+  border: none;
+  color: white;
+  border-radius: 100%;
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.firebtn:active {
+  background-color: yellow;
 }
 </style>

@@ -43,6 +43,16 @@ io.on("connection", function(socket) {
       io.to(data.room.toString()).emit('mobileCoordinates',data);
     });
 
+    // socket.on("mobileAcceleration", function(data) {
+    //   io.to(data.room.toString()).emit('mobileAcceleration',data.acceleration);
+    // });
+
+    
+
+    socket.on("fire", function(data) {
+      io.to(data.room.toString()).emit('fire');
+    });
+
     // socket.on("disconnect", function(data) {
     //   console.log("disconnecteddd", data, socket.id);
     // });

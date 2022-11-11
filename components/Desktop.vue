@@ -1,10 +1,11 @@
 <template>
   <div v-if="scanningStep" class="qrcodeview">
+    <!-- <Game :socket="socket" /> -->
     <h3>{{ room }}</h3>
     <div id="uniqueqrcode" class="qrcode"></div>
   </div>
   <div v-else>
-    <div class="ball" ref="ball"></div>
+    <Game :socket="socket" />
   </div>
 </template>
 <script>
@@ -47,10 +48,10 @@ export default {
       this.x = data.coordinate.x;
       this.y = data.coordinate.y;
       this.z = data.coordinate.z;
-      console.log("caca", this.$refs["ball"]);
-      this.$refs["ball"].style.transform = `translate3d(${this.z + this.x}px,${
-        this.y
-      }px,0)`;
+      // console.log("caca", this.$refs["ball"]);
+      // this.$refs["ball"].style.transform = `translate3d(${this.z + this.x}px,${
+      //   this.y
+      // }px,0)`;
     });
 
     // Join random room
