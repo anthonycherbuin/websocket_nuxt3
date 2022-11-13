@@ -1,49 +1,51 @@
 <template>
-  <a-scene background="color: #DADADA">
-    <a-entity
-      id="bulletTemplate"
-      bullet
-      geometry="primitive: sphere; radius: 0.03"
-      material="color: white"
-    ></a-entity>
+  <ClientOnly>
+    <a-scene background="color: #DADADA">
+      <a-entity
+        id="bulletTemplate"
+        bullet
+        geometry="primitive: sphere; radius: 0.03"
+        material="color: white"
+      ></a-entity>
 
-    <a-entity
-      class="target"
-      target="healthPoints: 10"
-      geometry="primitive: box"
-      material="color: teal"
-      position="0 0 -4"
-      hit-handler
-    ></a-entity>
+      <a-entity
+        class="target"
+        target="healthPoints: 10"
+        geometry="primitive: box"
+        material="color: teal"
+        position="0 0 -4"
+        hit-handler
+      ></a-entity>
 
-    <!-- <a-entity
+      <!-- <a-entity
       id="gun"
       vive-controls="hand: right;"
       oculus-touch-controls="hand: right; model: false;"
       daydream-controls="hand: right; model: false"
       shooter="bulletTypes: normal; activeBulletType: normal"
     > -->
-    <!-- </a-entity> -->
+      <!-- </a-entity> -->
 
-    <a-camera id="camera" position="0 1 0" rotation="0 90 0">
+      <a-camera id="camera" position="0 1 0" rotation="0 90 0">
+        <a-entity
+          id="gun"
+          shooter
+          geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3"
+          material="color: red"
+          click-to-shoot
+          position="0.1 -0.2 -0.2"
+        ></a-entity>
+      </a-camera>
+
       <a-entity
-        id="gun"
-        shooter
-        geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3"
-        material="color: red"
-        click-to-shoot
-        position="0.1 -0.2 -0.2"
+        environment="skyType: gradient; skyColor: white; horizonColor: #7ae0e0; groundTexture: squares; groundColor: green; groundColor2: green; dressing: torii; dressingAmount: 2; dressingColor: #7c5c45; dressingScale:1;"
       ></a-entity>
-    </a-camera>
-
-    <a-entity
-      environment="skyType: gradient; skyColor: white; horizonColor: #7ae0e0; groundTexture: squares; groundColor: green; groundColor2: green; dressing: torii; dressingAmount: 2; dressingColor: #7c5c45; dressingScale:1;"
-    ></a-entity>
-  </a-scene>
+    </a-scene>
+  </ClientOnly>
 </template>
 
 <script>
-import AFRAME from "/node_modules/aframe";
+import AFRAME from "../node_modules/aframe";
 import "aframe-super-shooter-kit";
 import TweenMax from "/node_modules/gsap";
 import "/aframe-environment-component.min.js";
