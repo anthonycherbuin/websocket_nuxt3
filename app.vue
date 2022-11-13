@@ -1,5 +1,5 @@
 <template>
-  <client-only>
+  <ClientOnly>
     <template v-if="isMobile()">
       <button v-if="useMobileAsVR === null" @click="setPhoneAsHeadset(false)">
         Use this smartphone as the gun
@@ -13,7 +13,7 @@
     <template v-else>
       <Desktop :isGun="false" />
     </template>
-  </client-only>
+  </ClientOnly>
 </template>
 <script>
 export default {
