@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import AFRAME from "../node_modules/aframe";
+import "AFRAME";
 import "aframe-super-shooter-kit";
 import TweenMax from "/node_modules/gsap";
 import "/aframe-environment-component.min.js";
