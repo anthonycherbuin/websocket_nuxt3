@@ -32,9 +32,10 @@ export default {
     // TODO: host that server
     this.socket = io("https://socket-nuxt3-aframe.herokuapp.com:4000");
 
+    console.log("init", this.socket.id);
     // Connect to socker io server
     this.socket.on("connect", () => {
-      console.log(this.socket.id);
+      console.log("connected", this.socket.id);
     });
 
     // this.socket.on("disconnect", () => {
