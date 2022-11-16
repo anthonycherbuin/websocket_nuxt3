@@ -30,6 +30,7 @@ export default {
   },
   mounted() {
     this.socket = io("https://websocket-nuxt3.vercel.app:4000");
+
     // Connect to socker io server
     this.socket.on("connect", () => {
       console.log(this.socket.id);
