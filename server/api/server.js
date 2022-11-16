@@ -1,16 +1,16 @@
 import express from "express";
-import fs from "fs";
+// import fs from "fs";
 const app = express();
 import { createServer } from "https";
 import { Server } from "socket.io";
 
 
-var privateKey  = fs.readFileSync('localhost-key.pem', 'utf8');
-var certificate = fs.readFileSync('localhost.pem', 'utf8');
+// var privateKey  = fs.readFileSync('localhost-key.pem', 'utf8');
+// var certificate = fs.readFileSync('localhost.pem', 'utf8');
 
-var credentials = {key: privateKey, cert: certificate};
-var httpsServer = createServer(credentials, app);
-
+// var credentials = {key: privateKey, cert: certificate};
+// var httpsServer = createServer(credentials, app);
+var httpsServer = createServer(app);
 
 const io = new Server(httpsServer, {
   cors: {
