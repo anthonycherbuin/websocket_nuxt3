@@ -29,9 +29,7 @@ export default {
     };
   },
   mounted() {
-    this.socket = io(
-      "https://socket-nuxt3-aframe.herokuapp.com:" + process.env.PORT
-    );
+    this.socket = io("https://socket-nuxt3-aframe.herokuapp.com:4000");
 
     // Connect to socker io server
     this.socket.on("connect", () => {
