@@ -2,7 +2,7 @@
   <div v-if="scanningStep" id="qr-code-full-region"></div>
   <div v-else>
     <!-- <div class="phoneisconnected">Move your phone :)</div> -->
-    <button class="firebtn" @click="fire()">FIRE</button>
+    <button class="firebtn" @click="fire()">CLICK</button>
   </div>
 </template>
 <script>
@@ -93,10 +93,17 @@ export default {
     },
     init() {
       if (window.DeviceOrientationEvent) {
+        let initialOffset = null;
+
         window.addEventListener(
           "deviceorientation",
           this.throttle((event) => {
-            this.x = event.alpha.toFixed(0); // alpha: rotation around z-axis
+            if (initialOffset === null) {
+              initialOffset = event.alpha;
+            }
+            var alpha = event.alpha - initialOffset;
+
+            this.x = alpha.toFixed(0); // alpha: rotation around z-axis
             this.z = -event.gamma.toFixed(0); // gamma: left to right
             this.y = event.beta.toFixed(0); // beta: front back motion
 
@@ -144,7 +151,7 @@ export default {
   top: 0;
   bottom: 0;
   margin: auto;
-  background-color: red; /* Green */
+  background-color: black; /* Green */
   border: none;
   color: white;
   border-radius: 100%;

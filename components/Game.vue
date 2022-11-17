@@ -13,9 +13,55 @@
         target="healthPoints: 10"
         geometry="primitive: box"
         material="color: teal"
-        position="0 0 -4"
+        position="-5 1 -10"
         hit-handler
       ></a-entity>
+
+      <a-entity
+        class="target"
+        target="healthPoints: 10"
+        geometry="primitive: sphere"
+        material="color: orange"
+        scale="0.5 0.5 0.5"
+        position="-10 1 -4"
+        hit-handler
+      ></a-entity>
+
+      <a-entity
+        class="target"
+        target="healthPoints: 10"
+        geometry="primitive: sphere"
+        material="color: orange"
+        scale="0.5 0.5 0.5"
+        position="3 1.5 -10"
+        hit-handler
+      ></a-entity>
+
+      <a-entity
+        class="target"
+        target="healthPoints: 10"
+        geometry="primitive: box"
+        material="color: teal"
+        position="0 3 -20"
+        hit-handler
+      ></a-entity>
+
+      <a-entity
+        class="target"
+        target="healthPoints: 10"
+        geometry="primitive: box"
+        material="color: teal"
+        position="5 0.5 -6"
+        hit-handler
+      ></a-entity>
+
+      <!-- <a-entity
+        class="clickable"
+        rotation="0 0"
+        scale="0.05 0.05 0.05"
+        position="0 0 0"
+        gltf-model="totoro.glb"
+      ></a-entity> -->
 
       <!-- <a-entity
       id="gun"
@@ -26,19 +72,21 @@
     > -->
       <!-- </a-entity> -->
 
-      <a-camera id="camera" position="0 1 0" rotation="0 90 0">
-        <a-entity
-          ref="gun"
-          shooter
-          geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3"
-          material="color: red"
-          click-to-shoot
-          position="0.1 -0.2 -0.2"
-        ></a-entity>
-      </a-camera>
+      <a-entity ref="rig" position="0 0 0">
+        <a-camera id="camera">
+          <a-entity
+            ref="gun"
+            shooter
+            geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3"
+            material="color: red"
+            click-to-shoot
+            position="0.1 -0.2 -0.2"
+          ></a-entity>
+        </a-camera>
+      </a-entity>
 
       <a-entity
-        environment="skyType: gradient; skyColor: white; horizonColor: #7ae0e0; groundTexture: squares; groundColor: green; groundColor2: green; dressing: torii; dressingAmount: 2; dressingColor: #7c5c45; dressingScale:1;"
+        environment="skyType: gradient; skyColor: white; horizonColor: #7ae0e0; groundTexture: squares; groundColor: green; groundColor2: green; dressing: torii; dressingAmount: 0; dressingColor: #7c5c45; dressingScale:1;"
       ></a-entity>
     </a-scene>
   </ClientOnly>
@@ -70,6 +118,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.gun = this.$refs.gun;
+      this.rig = this.$refs.rig;
     });
 
     let tween = { x: 0, y: 0, z: 0 };
@@ -78,7 +127,6 @@ export default {
       this.x = data.coordinate.x;
       this.y = data.coordinate.y;
       this.z = data.coordinate.z;
-      console.log(this.x);
 
       // Tween this values
       TweenMax.to(tween, 1, {
@@ -88,7 +136,11 @@ export default {
       });
 
       //   console.log(this.x, this.y, this.z, tween, tween.x, tween.y);
-      this.gun.setAttribute("rotation", `${tween.y} ${tween.x} ${tween.z}`);
+      this.gun.setAttribute(
+        "rotation",
+        `${tween.y / 6} ${tween.x / 6} ${tween.z}`
+      );
+      this.rig.setAttribute("rotation", `${tween.y} ${tween.x} 0`);
       //   this.gun.setAttribute("position", `${tween.x} ${tween.y} -1`);
     });
 

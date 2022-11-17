@@ -1,14 +1,16 @@
 <template>
   <ClientOnly>
     <template v-if="isMobile()">
-      <button v-if="useMobileAsVR === null" @click="setPhoneAsHeadset(false)">
-        Use this smartphone as the gun
-      </button>
-      <button v-if="useMobileAsVR === null" @click="setPhoneAsHeadset(true)">
-        Use this smartphone as the VR headset
-      </button>
-      <Mobile v-if="useMobileAsVR == false" :isGun="true" />
-      <Desktop v-if="useMobileAsVR" :isGun="false" />
+      <div class="button-grp">
+        <button v-if="useMobileAsVR === null" @click="setPhoneAsHeadset(false)">
+          Use this smartphone as the remote
+        </button>
+        <button v-if="useMobileAsVR === null" @click="setPhoneAsHeadset(true)">
+          Use this smartphone as the VR headset
+        </button>
+        <Mobile v-if="useMobileAsVR == false" :isGun="true" />
+        <Desktop v-if="useMobileAsVR" :isGun="false" />
+      </div>
     </template>
     <template v-else>
       <Desktop :isGun="false" />
@@ -47,5 +49,27 @@ export default {
 <style>
 body {
   margin: 0;
+}
+
+.button-grp {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+}
+
+button {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  border: 1px solid black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 </style>
