@@ -1,7 +1,7 @@
 <template>
   <div v-if="scanningStep" class="qrcodeview">
     <div id="uniqueqrcode" class="qrcode"></div>
-    <p>Use your smartphone and open this website to scan the qr code</p>
+    <p>Open this website on your smartphone to scan the qr code</p>
   </div>
   <div v-else>
     <Game :socket="socket" />
