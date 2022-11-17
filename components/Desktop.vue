@@ -30,7 +30,7 @@ export default {
   },
   mounted() {
     // TODO: host that server
-    this.socket = io("https://socket-nuxt3-aframe.herokuapp.com:4000");
+    this.socket = io("https://gentle-depths-65980.herokuapp.com:4000");
 
     console.log("init", this.socket.id);
     // Connect to socker io server

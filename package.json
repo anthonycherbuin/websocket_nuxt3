@@ -7,7 +7,6 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "npm run start",
     "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
