@@ -30,7 +30,7 @@ export default {
   },
   mounted() {
     // TODO: host that server
-    this.socket = io("https://gentle-depths-65980.herokuapp.com:6051");
+    this.socket = io("https://gentle-depths-65980.herokuapp.com");
 
     console.log("init", this.socket.id);
     // Connect to socker io server
