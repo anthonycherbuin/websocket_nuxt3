@@ -78,7 +78,7 @@
             ref="gun"
             shooter
             geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3"
-            material="color: black"
+            material="color: grey"
             click-to-shoot
             position="0.1 -0.2 -0.2"
           ></a-entity>
