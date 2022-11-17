@@ -29,7 +29,7 @@ export default {
     };
   },
   mounted() {
-    this.socket = io("https://gentle-depths-65980.herokuapp.com:15918");
+    this.socket = io("https://gentle-depths-65980.herokuapp.com:6051");
 
     // Connect to socker io server
     this.socket.on("connect", () => {
