@@ -28,7 +28,7 @@
 
       <a-camera id="camera" position="0 1 0" rotation="0 90 0">
         <a-entity
-          id="gun"
+          ref="gun"
           shooter
           geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3"
           material="color: red"
@@ -68,7 +68,10 @@ export default {
     };
   },
   mounted() {
-    this.gun = document.getElementById("gun");
+    this.$nextTick(() => {
+      this.gun = this.$refs.gun;
+    });
+
     let tween = { x: 0, y: 0, z: 0 };
 
     this.socket.on("mobileCoordinates", (data) => {
